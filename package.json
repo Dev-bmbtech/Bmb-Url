@@ -1,0 +1,16 @@
+{
+  "name": "Bmb Url",
+  "version": "1.0.0",
+  "description": "Upload media to Catbox from the browser",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "multer": "latest"
+  }
+}
