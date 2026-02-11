@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BMB CDN • Catbox Uploader</title>
+    <title>Bmb Url • Uploader</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -507,8 +507,8 @@
     <div id="loader">
         <div class="loader-content">
             <div class="modern-spinner"></div>
-            <div class="loader-text">BMB CDN</div>
-            <div style="color: var(--muted); font-size: 0.9rem;">Loading BMB Uploader...</div>
+            <div class="loader-text">B.M.B URL</div>
+            <div style="color: var(--muted); font-size: 0.9rem;">Loading secure uploader...</div>
         </div>
     </div>
 
@@ -520,30 +520,30 @@
                 <div class="brand-icon">
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
-                <h2>BMB CDN</h2>
+                <h2>B.M.B URL</h2>
             </div>
             
             <div class="subtitle">
                 <i class="fas fa-bolt"></i>
-                <span>BMB TECH • Supabase CDN</span>
+                <span>Fast • Secure • Bmb CDN</span>
                 <i class="fas fa-bolt"></i>
             </div>
 
             <!-- Upload Box -->
             <div id="uploadBox" onclick="document.getElementById('fileInput').click()">
                 <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                <p><strong>Bonyeza kuweka picha</strong></p>
-                <p class="upload-hint">📸 PNG, JPG, GIF • Max 50MB</p>
+                <p><strong>Click to upload</strong></p>
+                <p class="upload-hint">📸 PNG, JPG, GIF, MP4 • Max 100MB</p>
             </div>
             
-            <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="showPreview(event)">
+            <input type="file" id="fileInput" accept="image/*,video/*" style="display:none;" onchange="showPreview(event)">
             
             <!-- Preview Container -->
             <div id="preview">
                 <img id="previewImg" src="" alt="Preview">
                 <div class="preview-overlay">
                     <i class="fas fa-check-circle" style="color: var(--primary);"></i>
-                    <span>Iko tayari kupload</span>
+                    <span>Ready to upload</span>
                 </div>
             </div>
 
@@ -553,33 +553,33 @@
             <!-- Action Button -->
             <button id="actionBtn" onclick="handleAction()">
                 <i class="fas fa-rocket"></i>
-                <span>Pakia Picha</span>
+                <span>Upload Now</span>
             </button>
 
             <!-- Status -->
             <div id="status">
-                <i class="fas fa-info-circle"></i> Tayari kupakia
+                <i class="fas fa-info-circle"></i> Ready to upload
             </div>
 
             <!-- Link Row -->
             <div id="linkRow">
                 <a id="url" href="#" target="_blank"></a>
                 <button id="copyBtn" onclick="copyLink()">
-                    <i class="fas fa-copy"></i> Nakili
+                    <i class="fas fa-copy"></i> Copy
                 </button>
             </div>
 
             <!-- Footer -->
             <div class="footer-note">
                 <i class="fas fa-shield-alt"></i>
-                <span>BMB CDN • Supabase Storage</span>
+                <span>Powered by Bmb tech Url</span>
                 <i class="fas fa-shield-alt"></i>
             </div>
         </div>
     </div>
 
     <script>
-        // ========== BMB CDN UPLOADER ==========
+        // ========== MODERN JAVASCRIPT ==========
         let isImageSelected = false;
         let selectedFile = null;
 
@@ -594,17 +594,18 @@
             }, 2500);
         });
 
-        // ========== BACKGROUND CANVAS ==========
+        // ========== ADVANCED BACKGROUND CANVAS ==========
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
+        let particleCount = 60;
 
         function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             
             particles = [];
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
@@ -650,6 +651,7 @@
 
         initCanvas();
         animateParticles();
+
         window.addEventListener('resize', initCanvas);
 
         // ========== UPLOAD FUNCTIONS ==========
@@ -660,15 +662,17 @@
             if (file) {
                 // Show file info
                 const fileSize = (file.size / 1024).toFixed(2);
+                const fileType = file.type.split('/')[1] || 'unknown';
                 document.getElementById('fileInfo').innerHTML = `
-                    <i class="fas fa-file-image"></i> ${file.name} • ${fileSize}KB
+                    <i class="fas fa-file"></i> ${file.name} • ${fileSize}KB
                 `;
                 document.getElementById('fileInfo').style.display = 'flex';
                 
                 // Image preview
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('previewImg').src = e.target.result;
+                    const previewImg = document.getElementById('previewImg');
+                    previewImg.src = e.target.result;
                     document.getElementById('preview').style.display = 'block';
                 };
                 reader.readAsDataURL(file);
@@ -676,12 +680,12 @@
                 // Update UI
                 isImageSelected = true;
                 document.getElementById('status').innerHTML = `
-                    <i class="fas fa-check-circle" style="color: #22c55e;"></i>
-                    ✅ Imechaguliwa: ${file.name}
+                    <i class="fas fa-check-circle" style="color: var(--primary);"></i> 
+                    Ready: ${file.name}
                 `;
                 document.getElementById('actionBtn').innerHTML = `
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <span>Pata Link</span>
+                    <span>Generate Link</span>
                 `;
             }
         }
@@ -696,29 +700,27 @@
 
         async function uploadFile() {
             if (!selectedFile) {
-                alert('Chagua picha kwanza');
+                alert('Please select an image first');
                 return;
             }
 
             const statusEl = document.getElementById('status');
             const actionBtn = document.getElementById('actionBtn');
             const linkRow = document.getElementById('linkRow');
-            const urlElement = document.getElementById('url');
             
             // Upload UI
             statusEl.innerHTML = `
-                <div class="loading" style="width:20px;height:20px;border:2px solid #333;border-top-color:#00ffcc;border-radius:50%;animation:spin 1s infinite;"></div>
-                <span>Inapakia kwenye BMB CDN...</span>
+                <div class="loading" style="width:20px;height:20px;"></div>
+                Uploading to Bmb Cdn...
             `;
             actionBtn.disabled = true;
+            actionBtn.style.opacity = '0.7';
             linkRow.style.display = 'none';
-            urlElement.href = '#';
 
             const formData = new FormData();
             formData.append('file', selectedFile);
 
             try {
-                // ========== BMB CDN API ==========
                 const response = await fetch('/upload', {
                     method: 'POST',
                     body: formData
@@ -727,35 +729,34 @@
                 const data = await response.json();
 
                 if (data.url) {
-                    // ✅ SUCCESS - BMB CDN URL
+                    // Success
                     statusEl.innerHTML = `
-                        <i class="fas fa-check-circle" style="color: #22c55e;"></i>
-                        ✅ Imepakia! Nakili link yako
+                        <i class="fas fa-check-circle" style="color: var(--accent);"></i>
+                        ✅ Upload successful!
                     `;
                     
-                    // Show URL
+                    const urlElement = document.getElementById('url');
                     urlElement.innerText = data.url;
                     urlElement.href = data.url;
                     linkRow.style.display = 'flex';
                     
-                    // Change button text
+                    // Show success animation
                     actionBtn.innerHTML = `
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <span>Pakia Nyingine</span>
+                        <i class="fas fa-check"></i>
+                        <span>Upload Complete</span>
                     `;
-                    
-                    console.log('📎 BMB CDN URL:', data.url);
                 } else {
                     throw new Error(data.error || 'Upload failed');
                 }
             } catch (error) {
                 console.error('Upload error:', error);
                 statusEl.innerHTML = `
-                    <i class="fas fa-exclamation-triangle" style="color: #ff4757;"></i>
-                    ❌ Imeshindwa. Jaribu tena.
+                    <i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i>
+                    ❌ Upload failed. Try again.
                 `;
             } finally {
                 actionBtn.disabled = false;
+                actionBtn.style.opacity = '1';
             }
         }
 
@@ -765,13 +766,13 @@
             navigator.clipboard.writeText(urlText)
                 .then(() => {
                     const copyBtn = document.getElementById('copyBtn');
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Imenakiliwa!';
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
                     setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Nakili';
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
                     }, 2000);
                 })
                 .catch(() => {
-                    alert('Imeshindwa kunakili');
+                    alert('Failed to copy link');
                 });
         }
     </script>
