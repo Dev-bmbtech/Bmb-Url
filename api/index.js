@@ -26,7 +26,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         form.append('fileToUpload', fs.createReadStream(req.file.path), req.file.originalname);
         form.append('reqtype', 'fileupload');
 
-        const response = await axios.post('https://cdn.giftedtech.co.ke/api/upload.php', form, {
+        const response = await axios.post('https://catbox.moe/user/api.php', form, {
             headers: form.getHeaders(),
             timeout: 30000
         });
