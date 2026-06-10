@@ -23,19 +23,24 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
     try {
         const form = new FormData();
-        form.append('fileToUpload', fs.createReadStream(req.file.path), req.file.originalname);
-        form.append('reqtype', 'fileupload');
+        form.append('file', fs.createReadStream(req.file.path), req.file.originalname);
 
-        const response = await axios.post('https://catbox.moe/user/api.php', form, {
+        const response = await axios.post('https://url.bmbtech.site/api/upload', form, {
             headers: form.getHeaders(),
             timeout: 30000
         });
 
         // Cleanup temp file
         fs.unlinkSync(req.file.path);
-        
+
+        const data = response.data;
+
         res.json({ 
-            url: response.data.trim(),
+            url: data.url,
+            name: data.file_name,
+            type: data.file_type,
+            size: data.file_size,
+            expires: data.expires || null,
             success: true 
         });
         
