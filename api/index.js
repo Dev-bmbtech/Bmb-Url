@@ -25,7 +25,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         const form = new FormData();
         form.append('file', fs.createReadStream(req.file.path), req.file.originalname);
 
-        const response = await axios.post('https://url.bmbtech.site/api/upload', form, {
+        const response = await axios.post('https://url.bmbxmd.workers.dev/api/upload', form, {
             headers: form.getHeaders(),
             timeout: 30000
         });
