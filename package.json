@@ -1,7 +1,7 @@
 {
   "name": "Bmb Url",
   "version": "1.0.0",
-  "description": "Upload media to Catbox from the browser",
+  "description": "Upload media to bmb url from the browser",
   "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js"
